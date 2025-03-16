@@ -1,8 +1,15 @@
+// importações de dependências:
 import type { Metadata } from "next";
+
+// importações de estilos;
 import "./globals.css";
 
+// importações de componentes:
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Header } from "@/components/structure/header";
+
 export const metadata: Metadata = {
-  title: "Authion",
+  title: "Conta da Sandbr",
 };
 
 export default function RootLayout({
@@ -11,11 +18,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
         className="antialiased"
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+            <Header />
+            {children}
+        </ThemeProvider>
       </body>
     </html>
   );
