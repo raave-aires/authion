@@ -41,10 +41,10 @@ export default function Page() {
 						<Button variant="outline"><SiGithub /> GitHub</Button>
 						<Button variant="outline"><SiGoogle /> Google</Button>
 					</div>
-					<p className="flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">or</p>
+					<p className="flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">ou</p>
 					<Login />
 
-					<Button variant="link" asChild className="hover:no-underline"><Link href="/conta/criar" className="group"><p>Não tem uma conta? <span className="group-hover:underline">Crie uma</span></p></Link></Button>
+					<Button type="button" variant="link" asChild className="hover:no-underline"><Link href="/conta/criar" className="group"><p>Não tem uma conta? <span className="group-hover:underline">Crie uma</span></p></Link></Button>
 				</CardContent>
 			</Card>
 
