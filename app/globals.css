@@ -4,6 +4,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: "Averia";
+  src: url("/fonts/averia-serif-libre.ttf") format("truetype");
+};
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -42,6 +47,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-averia: Averia;
 }
 
 :root {
