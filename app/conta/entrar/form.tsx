@@ -1,15 +1,15 @@
 "use client"
-
+// importações de dependências:
+import Link from "next/link"
+import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
-import Link from "next/link"
 
+// importações de componentes:
 import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,10 +17,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+// esquemas do zod:
 const esquema_de_login = z.object({
   email: z.string().email(),
   password: z.string()
-})
+});
 
 export function Login() {
   const form = useForm<z.infer<typeof esquema_de_login>>({
@@ -29,9 +30,8 @@ export function Login() {
       email: "",
       password: "",
     },
-  })
+  });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof esquema_de_login>) {
     console.log(values)
   }
@@ -74,5 +74,5 @@ export function Login() {
         <Button type="submit">Entrar</Button>
       </form>
     </Form>
-  )
-}
+  );
+};
