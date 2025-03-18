@@ -1,5 +1,7 @@
 "use client"
+
 // importações de dependências:
+import React, { useState, type ReactNode, } from "react"
 import Link from "next/link"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -19,11 +21,15 @@ import { Input } from "@/components/ui/input"
 
 // esquemas do zod:
 const esquema_de_login = z.object({
-  email: z.string().email(),
+  email: z.string().email({
+    message: "O e-mail digitado não é válido.",
+  }),
   password: z.string()
 });
 
 export function Login() {
+  const [ botaoEntrar, setBotaoEntrar ] = useState <ReactNode | string>("Entrar");
+
   const form = useForm<z.infer<typeof esquema_de_login>>({
     resolver: zodResolver(esquema_de_login),
     defaultValues: {
@@ -71,7 +77,7 @@ export function Login() {
             </FormItem>
           )}
         />
-        <Button type="submit">Entrar</Button>
+        <Button type="submit">{botaoEntrar}</Button>
       </form>
     </Form>
   );
