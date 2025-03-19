@@ -8,12 +8,10 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card"
 import { Login } from "./form";
-import { Logo } from "@/components/structure/logo";
 import { Tela } from "@/components/structure/tela";
 
 // importações de ícones:
