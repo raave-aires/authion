@@ -30,7 +30,7 @@ export default function Page() {
             raavë
           </CardTitle>
           <CardDescription className="select-none">
-            Bem-vindo(a) de volta. Entre para continuar.
+            Bem-vindo(a). Preencha os campos para criar sua conta
           </CardDescription>
         </CardHeader>
 
@@ -42,7 +42,7 @@ export default function Page() {
           <p className="flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">ou</p>
           <CriarConta />
 
-          <Button type="button" variant="link" asChild className="hover:no-underline"><Link href="/conta/criar" className="group"><p>Não tem uma conta? <span className="group-hover:underline">Crie uma</span></p></Link></Button>
+          <Button type="button" variant="link" asChild className="hover:no-underline"><Link href="/conta/entrar" className="group"><p>Já tem uma conta? <span className="group-hover:underline">Entre</span></p></Link></Button>
         </CardContent>
       </Card>
 
