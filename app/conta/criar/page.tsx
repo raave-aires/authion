@@ -11,14 +11,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Login } from "./form";
+import { CriarConta } from "./form";
 import { Tela } from "@/components/structure/tela";
 
 // importações de ícones:
 import { SiGithub, SiGoogle } from "@icons-pack/react-simple-icons"
 
 export const metadata: Metadata = {
-  title: "Entrar"
+  title: "Criar conta"
 }
 
 export default function Page() {
@@ -40,7 +40,7 @@ export default function Page() {
             <Button variant="outline"><SiGoogle /> Google</Button>
           </div>
           <p className="flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">ou</p>
-          <Login />
+          <CriarConta />
 
           <Button type="button" variant="link" asChild className="hover:no-underline"><Link href="/conta/criar" className="group"><p>Não tem uma conta? <span className="group-hover:underline">Crie uma</span></p></Link></Button>
         </CardContent>
