@@ -1,10 +1,16 @@
 "use client";
 
 // importações de dependências:
-import React, { useState, type ReactNode } from "react";
+import React, { useEffect, useState, type ReactNode, useDeferredValue  } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { zxcvbn, zxcvbnOptions, zxcvbnAsync, ZxcvbnResult  } from '@zxcvbn-ts/core'
+
+// importações de padrões de senha
+import * as pacotePadrao from '@zxcvbn-ts/language-common';
+import * as pacoteIngles from '@zxcvbn-ts/language-en';
+import * as pacotePortugues from '@zxcvbn-ts/language-pt-br'
 
 // importações de componentes:
 import { Button } from "@/components/ui/button";
@@ -31,6 +37,18 @@ const esquema_de_criacao = z.object({
   senha: z.string(),
 });
 
+const parametros_de_senha = {
+  graphs: pacotePadrao.adjacencyGraphs,
+  dictionary: {
+    ...pacotePadrao.dictionary,
+    ...pacoteIngles.dictionary,
+    ...pacotePortugues.dictionary
+  },
+  translations: pacoteIngles.translations,
+}
+
+zxcvbnOptions.setOptions(parametros_de_senha)
+
 export function CriarConta() {
   const [botaoEntrar, setBotaoEntrar] = useState<ReactNode | string>("Criar");
 
@@ -45,13 +63,41 @@ export function CriarConta() {
   });
 
   const [exibirSenha, setExibirSenha] = useState<boolean>(false);
-  const senha = form.watch("senha");
+  const senha = form.watch("senha"); 
   const desabilitarBotaoExibirSenha = senha === "" || senha === undefined;
-  const [ forcaDaSenha, setForcaDaSenha ] = useState<ReactNode | undefined>(undefined)
+  
 
   function criar(values: z.infer<typeof esquema_de_criacao>) {
     console.log(values);
   }
+
+  const verificarForcaDaSenha = (senha: string) => {
+    const [forcaDaSenha, setForcaDaSenha] = useState("");
+    const deferredSenha = useDeferredValue(senha);
+  
+    useEffect(() => {
+      if (!deferredSenha) {
+        setForcaDaSenha("");
+        return;
+      }
+  
+      zxcvbnAsync(deferredSenha).then((resultado) => {
+        const forca =
+          resultado.score === 0 ? "Muito fraca" :
+          resultado.score === 1 ? "Fraca" :
+          resultado.score === 2 ? "Aceitável" :
+          resultado.score === 3 ? "Boa" :
+          resultado.score === 4 ? "Forte" : "";
+        
+        setForcaDaSenha(forca);
+      });
+    }, [deferredSenha]);
+  
+    return forcaDaSenha;
+  }  
+  const forcaDaSenha = verificarForcaDaSenha(senha);
+
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(criar)} className="flex flex-col gap-4">
