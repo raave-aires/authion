@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 //importações de ícones:
-import { EyeIcon, EyeClosedIcon } from "lucide-react";
+import { EyeIcon, EyeClosedIcon, LoaderCircle } from "lucide-react";
 
 const esquema_de_criacao = z.object({
   nome: z.string().min(1, { message: "Como devemos te chamar?" }),
@@ -31,8 +31,12 @@ const esquema_de_criacao = z.object({
   senha: z.string(),
 });
 
+function Carregando(){
+  return <LoaderCircle className="animate-spin"/>
+}
+
 export function CriarConta() {
-  const [botaoEntrar, setBotaoEntrar] = useState<ReactNode | string>("Criar");
+  const [botaoCriar, setBotaoCriar] = useState<ReactNode | string>("Criar");
 
   const form = useForm<z.infer<typeof esquema_de_criacao>>({
     resolver: zodResolver(esquema_de_criacao),
@@ -50,8 +54,14 @@ export function CriarConta() {
   const [ forcaDaSenha, setForcaDaSenha ] = useState<ReactNode | undefined>(undefined)
 
   function criar(values: z.infer<typeof esquema_de_criacao>) {
+  setBotaoCriar(<Carregando />);
+  // simula uma requisição assíncrona só pra exemplo, remove se não for usar
+  setTimeout(() => {
     console.log(values);
-  }
+    setBotaoCriar("Criar");
+  }, 2000);
+}
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(criar)} className="flex flex-col gap-4">
@@ -155,7 +165,7 @@ export function CriarConta() {
           )}
         />
 
-        <Button type="submit">{botaoEntrar}</Button>
+        <Button type="submit">{botaoCriar}</Button>
       </form>
 
       {/* hides browsers password toggles */}
