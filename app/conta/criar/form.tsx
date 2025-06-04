@@ -47,6 +47,7 @@ export function CriarConta() {
   const [exibirSenha, setExibirSenha] = useState<boolean>(false);
   const senha = form.watch("senha");
   const desabilitarBotaoExibirSenha = senha === "" || senha === undefined;
+  const [ forcaDaSenha, setForcaDaSenha ] = useState<ReactNode | undefined>(undefined)
 
   function criar(values: z.infer<typeof esquema_de_criacao>) {
     console.log(values);
@@ -116,7 +117,12 @@ export function CriarConta() {
           name="senha"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="flex justify-between">Senha</FormLabel>
+              <FormLabel className="flex justify-between">
+                Senha
+                <div>
+                  {forcaDaSenha}
+                </div>
+              </FormLabel>
               <FormControl>
                 <div className="flex">
                   <Input
